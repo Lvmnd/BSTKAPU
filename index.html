@@ -1647,7 +1647,7 @@ in ml/kg.</p>
 </div>
 <div id="descriptive-statistics" class="section level2">
 <h2>3. Descriptive Statistics</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">Install.package</span>(<span class="st">&quot;dplyr&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>desc_stats <span class="ot">&lt;-</span> diarrhea <span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Group) <span class="sc">%&gt;%</span></span>
@@ -1788,7 +1788,7 @@ reduction).</p>
 </div>
 <div id="bootstrap-confidence-interval-mean-difference" class="section level2">
 <h2>15. Bootstrap Confidence Interval (Mean Difference)</h2>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="fu">install.package</span>(<span class="st">&quot;boot&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;boot&quot;</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="fu">library</span>(boot)</span></code></pre></div>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a>mean_diff_fn <span class="ot">&lt;-</span> <span class="cf">function</span>(data, index) {</span>
 <span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a>  d <span class="ot">&lt;-</span> data[index, ]</span>
@@ -1807,16 +1807,18 @@ treatment effect.</p>
 <h2>16. Permutation Test (Randomization-Based Inference)</h2>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a>perm_test <span class="ot">&lt;-</span> <span class="cf">function</span>(data, <span class="at">n_perm =</span> <span class="dv">5000</span>) {</span>
 <span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a>  obs <span class="ot">&lt;-</span> <span class="fu">mean</span>(data<span class="sc">$</span>Stool[data<span class="sc">$</span>Group <span class="sc">==</span> <span class="st">&quot;Treatment&quot;</span>]) <span class="sc">-</span></span>
-<span id="cb41-3"><a href="#cb41-3" tabindex="-1"></a>    <span class="fu">mean</span>(data<span class="sc">$</span>Stool[data<span class="sc">$</span>Group <span class="sc">==</span> <span class="st">&quot;Control&quot;</span>])</span></code></pre></div>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>  perm_diffs <span class="ot">&lt;-</span> <span class="fu">replicate</span>(n_perm, {</span>
-<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a>    perm_group <span class="ot">&lt;-</span> <span class="fu">sample</span>(data<span class="sc">$</span>Group)</span>
-<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a>    <span class="fu">mean</span>(data<span class="sc">$</span>Stool[perm_group <span class="sc">==</span> <span class="st">&quot;Treatment&quot;</span>]) <span class="sc">-</span></span>
-<span id="cb42-4"><a href="#cb42-4" tabindex="-1"></a>      <span class="fu">mean</span>(data<span class="sc">$</span>Stool[perm_group <span class="sc">==</span> <span class="st">&quot;Control&quot;</span>])</span>
-<span id="cb42-5"><a href="#cb42-5" tabindex="-1"></a>  })</span></code></pre></div>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a>  p_value <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">abs</span>(perm_diffs) <span class="sc">&gt;=</span> <span class="fu">abs</span>(obs))</span>
-<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">observed =</span> obs, <span class="at">p_value =</span> p_value)</span>
-<span id="cb43-3"><a href="#cb43-3" tabindex="-1"></a><span class="er">}</span></span></code></pre></div>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a><span class="fu">perm_test</span>(diarrhea)</span></code></pre></div>
+<span id="cb41-3"><a href="#cb41-3" tabindex="-1"></a>    <span class="fu">mean</span>(data<span class="sc">$</span>Stool[data<span class="sc">$</span>Group <span class="sc">==</span> <span class="st">&quot;Control&quot;</span>])</span>
+<span id="cb41-4"><a href="#cb41-4" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" tabindex="-1"></a>  perm_diffs <span class="ot">&lt;-</span> <span class="fu">replicate</span>(n_perm, {</span>
+<span id="cb41-6"><a href="#cb41-6" tabindex="-1"></a>    perm_group <span class="ot">&lt;-</span> <span class="fu">sample</span>(data<span class="sc">$</span>Group)</span>
+<span id="cb41-7"><a href="#cb41-7" tabindex="-1"></a>    <span class="fu">mean</span>(data<span class="sc">$</span>Stool[perm_group <span class="sc">==</span> <span class="st">&quot;Treatment&quot;</span>]) <span class="sc">-</span></span>
+<span id="cb41-8"><a href="#cb41-8" tabindex="-1"></a>      <span class="fu">mean</span>(data<span class="sc">$</span>Stool[perm_group <span class="sc">==</span> <span class="st">&quot;Control&quot;</span>])</span>
+<span id="cb41-9"><a href="#cb41-9" tabindex="-1"></a>  })</span>
+<span id="cb41-10"><a href="#cb41-10" tabindex="-1"></a></span>
+<span id="cb41-11"><a href="#cb41-11" tabindex="-1"></a>  p_value <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">abs</span>(perm_diffs) <span class="sc">&gt;=</span> <span class="fu">abs</span>(obs))</span>
+<span id="cb41-12"><a href="#cb41-12" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">observed =</span> obs, <span class="at">p_value =</span> p_value)</span>
+<span id="cb41-13"><a href="#cb41-13" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="fu">perm_test</span>(diarrhea)</span></code></pre></div>
 <p>Permutation testing aligns directly with the randomized trial design.
 The small p-value provides strong randomization-based evidence of
 treatment efficacy.</p>
@@ -1828,7 +1830,7 @@ treatment efficacy.</p>
 <p>Then run this code below</p>
 <p><strong>Important: Change ““YOUR_NAME” into your real
 name!</strong></p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(<span class="st">&quot;YOUR NAME_UAS_BIOSTAT.R&quot;</span>, <span class="at">output_format =</span> <span class="st">&quot;html_document&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(<span class="st">&quot;YOUR NAME_UAS_BIOSTAT.R&quot;</span>, <span class="at">output_format =</span> <span class="st">&quot;html_document&quot;</span>)</span></code></pre></div>
 <p>Across parametric, non-parametric, robust, and resampling methods,
 bismuth salicylate consistently reduces stool output in infants with
 diarrhea. The effect is statistically robust, clinically meaningful, and
